@@ -1,40 +1,40 @@
 package com.employeewage;
 
 public class EmployeeWageComputation {
-    public static void main(String[] args) {
+    public static void calculateTotalWage() {
+        final int PART_TIME = 1;
+        final int FULL_TIME = 2;
+        final int WAGE_PER_HR = 20;
+        final int MAX_WORKING_DAYS = 20;
+        final int MAX_WORKING_HRS = 100;
 
-        final int partTime = 1;
-        final int fullTime = 2;
-        final int wagePerHour = 20;
-        final int maxWorkingDay = 20;
-        final int maxWorkingHours = 100;
+        int totalWage = 0;
+        int workingHrs = 0;
+        System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
+        for (int day = 1, totalWorkingHrs = 0; day <= MAX_WORKING_DAYS
+                && totalWorkingHrs < MAX_WORKING_HRS; day++, totalWorkingHrs += workingHrs) {
 
-        int monthWage = 0;
-        int workingHours = 0;
-        int totalWorkingHours = 0;
-        int day;
-        for (day = 1, totalWorkingHours = 0; day <= maxWorkingDay
-                && totalWorkingHours < maxWorkingHours; day++, totalWorkingHours += workingHours) {
-            int empType = (int) ((Math.random() * 100) % 3);
-
+            int empType = (int) (Math.random() * 100) % 3;
             switch (empType) {
-                case fullTime:
-                    System.out.println("Employee is present Full Time ");
-                    workingHours = 8;
+                case FULL_TIME:
+                    workingHrs = 8;
                     break;
-                case partTime:
-                    System.out.println("Employee is present Part Time");
-                    workingHours = 4;
+                case PART_TIME:
+                    workingHrs = 4;
                     break;
                 default:
-                    System.out.println("Employee is absent");
+                    workingHrs = 0;
+                    break;
             }
-            int wage = workingHours * wagePerHour;
-            System.out.println("Employee Daily Wage is :" + wage);
-            monthWage += wage;
-            System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
-            System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHours, wage, totalWorkingHours + workingHours);
+            int wage = workingHrs * WAGE_PER_HR;
+            totalWage += wage;
+            System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+
         }
-        System.out.println("Total wage for a month is :" + monthWage);
+        System.out.println("Total wage for a month is " + totalWage);
+    }
+
+    public static void main(String args[]) {
+        calculateTotalWage();
     }
 }
